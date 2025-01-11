@@ -1,0 +1,45 @@
+.overlay_top {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: fit-content;
+    content: '';
+    /*background-color: hotpink;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    z-index: 1;
+}
+.overlay_bottom {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: fit-content;
+    content: '';
+    /*background-color: hotpink;*/
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+.blurBox{
+    width: 100%;
+    height: calc(250px / 10);
+    content: '';
+}
+.blur3{
+    /*background-color: chocolate;*/
+    backdrop-filter: blur(1px) brightness(60%);
+}
+.blur2{
+    /*background-color: cornflowerblue;*/
+    backdrop-filter: blur(1px) brightness(70%);
+
+}
+.blur1{
+    /*background-color: darkgoldenrod;*/
+    backdrop-filter: blur(1px) brightness(80%);
+
+}

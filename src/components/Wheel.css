@@ -1,0 +1,80 @@
+.container {
+    position: relative;
+    box-sizing: content-box;
+    /*height: 80vh;*/
+    background: darkgoldenrod;
+}
+
+.wheelContainer {
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+/*.wheelContainer::before {*/
+/*    background-color: brown;*/
+/*    position: absolute;*/
+/*    content: '';*/
+/*    height: 1px;*/
+/*    width: 100%;*/
+/*    z-index: 4;*/
+/*    top: 50%*/
+/*}*/
+/*.viewWindow{*/
+/*    position: absolute;*/
+/*    background-color: darkgoldenrod;*/
+/*    height: 100%;*/
+/*    width: 100%;*/
+/*    left: 0;*/
+/*    top: 0;*/
+/*    z-index: 7;*/
+/*}*/
+
+.transitionContainer {
+    position: relative;
+    overflow-y: hidden;
+    /*overflow-y: scroll;*/
+    /*height: unset;*/
+    height: 1000px;
+    width: 250px;
+}
+.slotsContainer {
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.primary_animation {
+    animation: primary 1s linear paused infinite;
+    /*animation: primary 4s cubic-bezier(0, 1, 0, 1) paused infinite;*/
+}
+.secondary_animation {
+    animation:secondary 1s linear paused infinite;
+    /*animation:secondary 4s cubic-bezier(0, 1, 0, 1) paused infinite;*/
+}
+.wheelSlotContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: inherit;
+    /*height: 30px;*/
+}
+
+@keyframes primary {
+    from {
+        top: 0;
+    }
+    to {
+        top: -100%;
+    }
+}
+
+@keyframes secondary {
+    from {
+        top: 100%;
+    }
+    to {
+        top: 0;
+    }
+}

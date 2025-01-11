@@ -1,0 +1,34 @@
+#selection-container{
+    width: 200px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    background-color: #fff;
+}
+#selection-text{
+    width: 200px;
+    height: 60px;
+    content: '';
+    /*background-color: #fff;*/
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+    align-content: center;
+    border-radius: 3px;
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+.animate {
+    animation: scroll-x 4s ease-in-out running infinite;
+}
+
+@keyframes scroll-x {
+    from {
+        transform: translateX(0);
+        /*left: 0;*/
+    }
+    to {
+        transform: translateX(-10%);
+        /*left: -100%*/
+    }
+
+}

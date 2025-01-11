@@ -1,34 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {Wheel} from "./components/Wheel.tsx";
 import './App.css'
+import {createContext, useState} from "react";
+import {Status} from "./utils/types.ts";
+import SelectionDisplay from "./components/SelectionDisplay.tsx";
+import OptionsDisplay from "./components/options/OptionsDisplay.tsx";
+import {rowOptionsType} from "./components/options/OptionsTable.tsx";
+import {randomizeOptions} from "./utils/helperFunctions.ts";
+
+// const fruits = ["apples", "banana", "oranges", "watermelon", "pineapples", "grapes", "lemons", "limes", "guava", "mango", "durian", "pomegranate", "kiwi"]
+// const fruits = ["appleslhfjdhkghdksdfdsffhgl", "bananadsdfdsfsdkfhkgldhfgkfd", "orangesdhjklfgdkfhgdfsdfdsfkhgkdfjghdf", "90sdf", "sdfsdf", "sdf8sdfs"]
+
+const rows: rowOptionsType[] = [
+    {optionLabel:'Frozen yoghurt', frequency:1},
+    {optionLabel:'Ice cream sandwich', frequency:1},
+    {optionLabel:'Eclair', frequency:1},
+    {optionLabel:'Cupcake', frequency:1},
+    {optionLabel:'Gingerbread', frequency:1},
+]
+export interface OptionsType {
+    optionObjects: rowOptionsType[];
+    updateOptions: (options: rowOptionsType[]) => void;
+}
+
+// const OptionsContext:Context<OptionsType> = createContext({labels: randomizeOptions(rows), optionObjects: rows})
+export const OptionsContext = createContext<OptionsType | null>(null)
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [options, setOptions] = useState<rowOptionsType[]>(rows);
+    const [listOptions, setListOptions] = useState<string[]>(randomizeOptions(options));
+    const [animationState, setAnimationState] = useState<Status>(Status.PAUSE);
+    const [selection, setSelection] = useState<string>('');
+
+    // const list = randomizeOptions(options);
+
+    const handleOptionsUpdate = (option: rowOptionsType[]): void => {
+        setOptions(option);
+        setListOptions(randomizeOptions(options));
+    }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <OptionsContext.Provider value={{optionObjects: options, updateOptions: (options: rowOptionsType[]) => handleOptionsUpdate(options)}}>
+          <div className={`root mainContainer`}>
+              <div className={`mainWheelContainer`}>
+                  <SelectionDisplay selection={selection}/>
+                  <div style={{display: "flex", gap: 50, alignItems: "center"}}>
+                      <Wheel list={listOptions} state={animationState}
+                             handleStopAnimation={() => setAnimationState(Status.PAUSE)}
+                             handleSelection={(selection) => setSelection(selection)}/>
+                      <button className="spin-button" onClick={() => setAnimationState(Status.PLAY)}>Spin</button>
+                  </div>
+              </div>
+              <OptionsDisplay/>
+          </div>
+      </OptionsContext.Provider>
+
   )
 }
 
